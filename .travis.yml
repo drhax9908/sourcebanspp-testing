@@ -1,3 +1,4 @@
+  
 #Use the new container-based infrastructure
 sudo: false
 language: sourcepawn
@@ -9,13 +10,15 @@ addons:
     
 matrix:
   allow_failures:
-    - env: SOURCEMOD=1.10
-    
+    - env: SOURCEMOD=1.8
+    - env: SOURCEMOD=1.11
+
 #Set the build environment
 env:
   - SOURCEMOD=1.8
   - SOURCEMOD=1.9
   - SOURCEMOD=1.10
+  - SOURCEMOD=1.11
 
 #And compile!
 before_script:
@@ -23,8 +26,13 @@ before_script:
   - cd game
   - tar -xzf sourcemod-$SOURCEMOD-linux.tar.gz
   - cd addons/sourcemod/scripting/
-  - wget https://bitbucket.org/GoD_Tony/updater/raw/53ebb3e27e5a43bc46dc52dc0de76ac2fb48cd9e/include/updater.inc -O include/updater.inc
+  - wget https://raw.githubusercontent.com/sbpp/Updater-include-mirror/master/scripting/include/updater.inc -O include/updater.inc
   - chmod +x spcomp
 
 script:
-  - ./compile.sh sbpp_main.sp sbpp_admcfg.sp sbpp_comms.sp sbpp_checker.sp sbpp_sleuth.sp sbpp_report.sp
+  - ./spcomp sbpp_main.sp -E -i$PWD -v0
+  - ./spcomp sbpp_admcfg.sp -E -i$PWD -v0
+  - ./spcomp sbpp_comms.sp -E -i$PWD -v0
+  - ./spcomp sbpp_checker.sp -E -i$PWD -v0
+  - ./spcomp sbpp_sleuth.sp -E -i$PWD -v0
+  - ./spcomp sbpp_report.sp -E -i$PWD -v0
