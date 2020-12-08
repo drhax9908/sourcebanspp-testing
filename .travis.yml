@@ -23,7 +23,7 @@ env:
 
 #And compile!
 before_script:
-  - wget "$SOURCEMODURL -O game/sourcemod-$SOURCEMODVERSION-linux.tar.gz
+  - wget "$SOURCEMODURL" -O game/sourcemod-$SOURCEMODVERSION-linux.tar.gz
   - cd game
   - tar -xzf sourcemod-$SOURCEMODVERSION-linux.tar.gz
   - cd addons/sourcemod/scripting/
